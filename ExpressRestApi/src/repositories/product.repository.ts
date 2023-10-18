@@ -1,4 +1,5 @@
 import { ProductEntity } from '../schema/types/product.entity';
+import { DI } from '../index';
 
 const products: ProductEntity[] = [
   {
@@ -15,10 +16,12 @@ const products: ProductEntity[] = [
   }
 ];
 
-export const getAll = () => {
+export const getAll = async () => {
+  const products = await DI.productRepository.findAll();
   return products;
 }
 
-export const getById = (id: string) => {
-  return products.find(prod => prod.id === id);
+export const getById = async (id: string) => {
+  const product = await DI.productRepository.findOne({ id });
+  return product;
 }

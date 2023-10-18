@@ -15,7 +15,8 @@ export interface CartEntity {
 
 export const cartItemsSchema = Joi.array().items(
   Joi.object({
-    product: productUpdateSchema,
+    id: Joi.string(),
+    product: Joi.string(),
     count: Joi.number()
     .integer()
     .min(0)

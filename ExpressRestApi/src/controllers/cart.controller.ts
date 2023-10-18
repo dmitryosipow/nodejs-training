@@ -7,13 +7,13 @@ import { cartItemsSchema } from '../schema/types/cart.entity';
 
 const cartRouter = express.Router();
 
-const createOrFindCart = (req: Request, res: Response, next: NextFunction) => {
+const createOrFindCart = async (req: Request, res: Response, next: NextFunction) => {
   const userId = req.header('x-user-id') as string;
 
-  let cart = getCart(userId);
+  let cart:any = await getCart(userId);
 
   if(!cart) {
-    cart = createCart(userId);
+    cart = await createCart(userId);
   }
 
   res.status(200);
@@ -23,7 +23,7 @@ const createOrFindCart = (req: Request, res: Response, next: NextFunction) => {
 cartRouter.get('/api/profile/cart', userValidation, createOrFindCart);
 cartRouter.post('/api/profile/cart', userValidation, createOrFindCart);
 
-cartRouter.put('/api/profile/cart',userValidation, (req: Request, res: Response, next: NextFunction) => {
+cartRouter.put('/api/profile/cart',userValidation,async (req: Request, res: Response, next: NextFunction) => {
   const cartId = req.body.id;
   const cartItems = req.body.items;
   const validation = cartItemsSchema.validate(cartItems);
@@ -35,7 +35,7 @@ cartRouter.put('/api/profile/cart',userValidation, (req: Request, res: Response,
     res.send({ message: validation.error.message });
     return
   }
-  let cart = updateCart(cartId, cartItems);
+  let cart = await updateCart(cartId, cartItems);
 
   if(!cart) {
     res.status(400);
@@ -64,10 +64,10 @@ cartRouter.delete('/api/profile/cart',userValidation, (req: Request, res: Respon
 
 export type CheckoutRequestData = Omit<OrderEntity, 'id'|'userId'|'cartId'|'items'>;
 
-cartRouter.post('/api/profile/cart/checkout', userValidation, (req: Request<{}, any, { data: CheckoutRequestData }>, res: Response, next: NextFunction) => {
+cartRouter.post('/api/profile/cart/checkout', userValidation, async (req: Request<{}, any, { data: CheckoutRequestData }>, res: Response, next: NextFunction) => {
   const userId = req.header('x-user-id') as string;
 
-  let order = createOrder(userId, req.body.data);
+  let order = await createOrder(userId, req.body.data);
 
   if(!order) {
     res.status(400);

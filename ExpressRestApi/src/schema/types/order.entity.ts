@@ -1,6 +1,11 @@
 import { CartItemEntity } from './cart.entity';
 
-export type ORDER_STATUS = 'created' | 'completed';
+export type ORDER_STATUS = /*'created' | 'completed'*/ `${ORDER_STATUS_ENUM}`;
+
+export enum ORDER_STATUS_ENUM {
+  CREATED = 'created',
+  COMPLETED = 'completed'
+}
 
 export interface OrderEntity {
   id: string, // uuid

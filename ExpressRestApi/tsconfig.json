@@ -1,13 +1,26 @@
 {
   "compilerOptions": {
-    "target": "es5",                          
-    "module": "commonjs",                    
+    "target": "es2020",
+    "module": "commonjs",
+    "moduleResolution": "node",
     "lib": ["es6"],                    
     "outDir": "dist",                          
     "rootDir": "src",
-    "strict": true,         
+    "strict": true,
+    "declaration": true,
     "noImplicitAny": true,
     "esModuleInterop": true,
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+  },
+  "include": ["./src"],
+  "exclude": ["node_modules"],
+  "mikro-orm": {
+    "useTsNode": true,
+    "configPaths": [
+      "./src/config/orm.config.ts",
+      "./dist/config/orm.config.js"
+    ]
   }
 }
