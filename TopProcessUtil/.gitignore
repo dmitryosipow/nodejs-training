@@ -1,0 +1,6 @@
+node_modules
+dist
+
+# JetBrains IDE
+.idea/
+*.iml
