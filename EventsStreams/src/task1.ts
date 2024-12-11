@@ -1,32 +1,34 @@
-import { EventEmitter } from "./EventEmitter";
+import { EventEmitter } from './EventEmitter';
 
 const myEmitter = new EventEmitter();
 
 function c1() {
-    console.log('an event occurred!');
+  console.log('an event occurred!');
 }
 
 function c2() {
-    console.log('yet another event occurred!');
+  console.log('yet another event occurred!');
 }
 
 myEmitter.on('eventOne', c1); // Register for eventOne
 myEmitter.on('eventOne', c2); // Register for eventOne
 
 // Register eventOnce for one time execution
-myEmitter.once('eventOnce', () => console.log('eventOnce once fired'));
+myEmitter.once('eventOnce', () =>
+  console.log('eventOnce once fired'),
+);
 myEmitter.once('init', () => console.log('init once fired'));
 
 // Register for 'status' event with parameters
-myEmitter.on('status', (code, msg)=> console.log(`Got ${code} and ${msg}`));
-
+myEmitter.on('status', (code, msg) =>
+  console.log(`Got ${code} and ${msg}`),
+);
 
 myEmitter.emit('eventOne');
 
 // Emit 'eventOnce' -> After this the eventOnce will be
 // removed/unregistered automatically
 myEmitter.emit('eventOnce');
-
 
 myEmitter.emit('eventOne');
 myEmitter.emit('init');

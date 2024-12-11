@@ -1,4 +1,4 @@
-import { EventEmitter } from "./EventEmitter";
+import { EventEmitter } from './EventEmitter';
 import { performance } from 'perf_hooks';
 
 type AsyncFunc = (...args: any[]) => void;
