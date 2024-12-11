@@ -1,7 +1,14 @@
-export class EventEmitter {
-    listeners = {};  // key-value pair
+type Listener = {
+    fn: BasicFn;
+    once?: boolean;
+};
 
-    addListener(eventName, fn, once = false) {
+type BasicFn = (...args: any[]) => void;
+
+export class EventEmitter {
+    private listeners: { [eventName: string]: Listener[] } = {};  // key-value pair
+
+    addListener(eventName: string, fn: BasicFn, once = false) {
         if (!this.listeners[eventName]) {
             this.listeners[eventName] = [];
         }
@@ -11,11 +18,11 @@ export class EventEmitter {
         });
     }
 
-    on(eventName, fn) {
+    on(eventName: string, fn: BasicFn) {
         this.addListener(eventName, fn);
     }
 
-    removeListener(eventName, fn) {
+    removeListener(eventName: string, fn: BasicFn) {
         if (this.listeners[eventName]) {
             const ind = this.listeners[eventName].findIndex(el => el.fn === fn);
             if (ind >= 0) {
@@ -24,15 +31,15 @@ export class EventEmitter {
         }
     }
 
-    off(eventName, fn) {
+    off(eventName: string, fn: BasicFn) {
         this.removeListener(eventName, fn);
     }
 
-    once(eventName, fn) {
+    once(eventName: string, fn: BasicFn) {
         this.addListener(eventName, fn, true);
     }
 
-    emit(eventName, ...args) {
+    emit(eventName: string, ...args: any[]) {
         if (!this.listeners[eventName]) return;
         this.listeners[eventName].forEach((el, index) => {
             el.fn(...args);
@@ -42,13 +49,13 @@ export class EventEmitter {
         });
     }
 
-    listenerCount(eventName) {
+    listenerCount(eventName: string) {
         if (!this.listeners[eventName]) return 0;
 
         return this.listeners[eventName].length;
     }
 
-    rawListeners(eventName) {
+    rawListeners(eventName: string) {
         if (!this.listeners[eventName]) return [];
 
         return this.listeners[eventName].map(el => el.fn);
