@@ -6,7 +6,8 @@ const validateCountry = (country: string) => {
 };
 
 const validateYear = (year: number) => {
-  return year === new Date().getFullYear();
+  const currentYear = new Date().getFullYear();
+  return Number.isInteger(year) && year > 0 && year <= currentYear;
 };
 
 export const validateInput = ({ year, country }: { year?: number; country?: string }) => {

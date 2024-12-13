@@ -2,7 +2,7 @@ import { shortenPublicHoliday, validateInput } from './helpers';
 
 describe('Helpers test', () => {
   test('should return true if input is correct', async () => {
-    expect(validateInput({year:2023, country: 'DE'})).toEqual(true);
+    expect(validateInput({year: new Date().getFullYear(), country: 'DE'})).toEqual(true);
   });
 
 
@@ -11,7 +11,7 @@ describe('Helpers test', () => {
   });
 
   test('should throw error in case incorrect input year', async () => {
-    expect(() => validateInput({year:2003, country: 'NL'})).toThrow(new Error('Year provided not the current, received: 2003'));
+    expect(() => validateInput({year:2103, country: 'NL'})).toThrow(new Error('Year provided not the current, received: 2103'));
   });
 
   test('should return correct shorten holiday', async () => {
