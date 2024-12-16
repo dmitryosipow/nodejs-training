@@ -4,7 +4,7 @@
   "description": "",
   "main": "",
   "scripts": {
-    "start": "nodemon src/UsersAPI.ts"
+    "start": "nodemon --exec ts-node src/ServerUsersAPI.ts"
   },
   "author": "",
   "license": "ISC",

@@ -18,11 +18,10 @@ export class UserController {
     const users = getUsers();
 
     const ind = users.findIndex(user => user.id === id);
-    if (ind) {
+    if (ind > -1) {
       users.splice(ind, 1);
       return true;
     }
-
     throw new Error('No such user found');
   }
 

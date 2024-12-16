@@ -27,6 +27,20 @@ export class HobbyController {
     throw new Error('No user has been found with such id')
   }
 
+  update(id: string, newHobbies: string[]) {
+    const users = getUsers();
+
+    const user = users.find(user => user.id === id);
+    if (!user) {
+      throw new Error('No user has been found with such id')
+    }
+
+    const updatedHobbies = new Set([...user.hobbies, ...newHobbies]);
+    user.hobbies = Array.from(updatedHobbies);
+
+    return user;
+  }
+
   delete(id: string, hobbyParam: string) {
     const users = getUsers();
 
